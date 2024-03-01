@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 import {
   userRouter,
   transactionRouter,
@@ -7,6 +7,8 @@ import {
 import { StatusCodes } from 'http-status-codes';
 
 const app = express();
+
+app.use(json());
 
 app.get('/', (_, res) => {
   return res.status(StatusCodes.OK).send('Server on!');

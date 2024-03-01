@@ -5,25 +5,25 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
     id!: number;
 
-  @Column()
-    name: string;
+  @Column({ length: 100 })
+    username: string;
 
-  @Column()
+  @Column({ unique: true })
     email: string;
 
-  @Column()
+  @Column({ length: 100 })
     password: string;
 
   @CreateDateColumn({default: () => 'NOW()'})
     registration_date!: string;
 
   constructor(
-    name: string,
+    username: string,
     email: string,
     password: string
   ) {
     super();
-    this.name = name;
+    this.username = username;
     this.email = email;
     this.password = password;
   }

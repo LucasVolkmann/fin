@@ -14,7 +14,7 @@ userRouter.get('/user', (_, res) => {
     .send(getReasonPhrase(StatusCodes.NOT_IMPLEMENTED));
 });
 
-userRouter.post('/user', UserController.createMidValidator, UserController.create);
+userRouter.post('/user', UserController.createValidator, UserController.create);
 
 export default userRouter;
 

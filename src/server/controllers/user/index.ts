@@ -1,6 +1,6 @@
-import { create, createMidValidator } from './Create';
+import { create, createValidator } from './Create';
 
 export const UserController = {
   create,
-  createMidValidator
+  createValidator
 };

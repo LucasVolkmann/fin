@@ -9,10 +9,7 @@ userRouter.post('/auth', (_, res) => {
     .send(getReasonPhrase(StatusCodes.NOT_IMPLEMENTED));
 });
 
-userRouter.get('/user', (_, res) => {
-  return res.status(StatusCodes.NOT_IMPLEMENTED)
-    .send(getReasonPhrase(StatusCodes.NOT_IMPLEMENTED));
-});
+userRouter.get('/user/:id', UserController.getByIdValidator, UserController.getById);
 
 userRouter.post('/user', UserController.createValidator, UserController.create);
 

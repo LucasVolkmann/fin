@@ -1,4 +1,4 @@
-import { Request, RequestHandler, Response } from 'express';
+import { Request, RequestHandler } from 'express';
 import { validateData } from '../../shared/middlewares/validateData';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
@@ -16,7 +16,7 @@ export const createValidator = validateData((getSchema) => ({
   })),
 }));
 
-export const create: RequestHandler = async (req: Request<unknown, unknown, CreateUserBodyProps>, res: Response) => {
+export const create: RequestHandler = async (req: Request<unknown, unknown, CreateUserBodyProps>, res) => {
 
   try {
     if (!req.body) {

@@ -2,12 +2,11 @@ import { Request, RequestHandler, Response } from 'express';
 import { validateData } from '../../shared/middlewares/validateData';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
+import { createUser } from '../../services/user/createUser';
+import { UserDTOType } from '../../models/dtos/UserDTOType';
+import { InternalServerError } from '../../shared/exceptions/InternalServerError';
 
-interface CreateUserBodyProps {
-  username: string,
-  email: string,
-  password: string,
-}
+interface CreateUserBodyProps extends UserDTOType {}
 
 export const createValidator = validateData((getSchema) => ({
   body: getSchema<CreateUserBodyProps>(yup.object().shape({
@@ -17,7 +16,20 @@ export const createValidator = validateData((getSchema) => ({
   })),
 }));
 
+export const create: RequestHandler = async (req: Request<unknown, unknown, CreateUserBodyProps>, res: Response) => {
 
-export const create: RequestHandler = (req: Request<unknown, unknown, CreateUserBodyProps>, res: Response) => {
-  return res.status(StatusCodes.OK).send(req.body);
+  try {
+    if (!req.body) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
+    }
+    const userId = await createUser(req.body);
+    return res.status(StatusCodes.CREATED).send(userId);
+  } catch (error) {
+    if (error instanceof InternalServerError) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({errors: error.message});
+    } else {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
+    }
+  }
+
 };

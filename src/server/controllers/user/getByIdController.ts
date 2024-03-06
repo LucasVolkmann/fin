@@ -3,7 +3,6 @@ import { StatusCodes } from 'http-status-codes';
 import { validateData } from '../../shared/middlewares/validateData';
 import * as yup from 'yup';
 import { getByIdUser } from '../../services/user/getByIdUser';
-import { InternalServerError } from '../../shared/exceptions/InternalServerError';
 
 interface GetByIdParamsProps {
   id?: number
@@ -15,7 +14,7 @@ export const getByIdValidator = validateData((getSchema) => ({
   })),
 }));
 
-export const getById: RequestHandler = async (req: Request<GetByIdParamsProps>, res) => {
+export const getByIdController: RequestHandler = async (req: Request<GetByIdParamsProps>, res) => {
 
   try {
     if (!req.params.id) {
@@ -27,9 +26,10 @@ export const getById: RequestHandler = async (req: Request<GetByIdParamsProps>, 
     }
     return res.status(StatusCodes.OK).json(user);
   } catch (error) {
-    if (error instanceof InternalServerError) {
+    if (error instanceof Error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({errors: error.message});
+    } else {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({errors: 'Error while getting by id.'});
     }
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({errors: 'Error.'});
   }
 };

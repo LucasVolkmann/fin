@@ -1,9 +1,9 @@
-import { create, createValidator } from './Create';
-import { getById, getByIdValidator } from './GetById';
+import { createController, createValidator } from './createController';
+import { getByIdController, getByIdValidator } from './getByIdController';
 
 export const UserController = {
-  create,
+  createController,
   createValidator,
-  getById,
+  getByIdController,
   getByIdValidator
 };

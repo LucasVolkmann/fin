@@ -4,7 +4,6 @@ import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 import { createUser } from '../../services/user/createUser';
 import { UserDTOType } from '../../models/dtos/UserDTOType';
-import { InternalServerError } from '../../shared/exceptions/InternalServerError';
 
 interface CreateUserBodyProps extends UserDTOType {}
 
@@ -16,19 +15,19 @@ export const createValidator = validateData((getSchema) => ({
   })),
 }));
 
-export const create: RequestHandler = async (req: Request<unknown, unknown, CreateUserBodyProps>, res) => {
+export const createController: RequestHandler = async (req: Request<unknown, unknown, CreateUserBodyProps>, res) => {
 
   try {
     if (!req.body) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
+      return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }
     const userId = await createUser(req.body);
-    return res.status(StatusCodes.CREATED).send(userId);
+    return res.status(StatusCodes.CREATED).json(userId);
   } catch (error) {
-    if (error instanceof InternalServerError) {
+    if (error instanceof Error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({errors: error.message});
     } else {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({errors: 'Unexpected error.'});
     }
   }
 

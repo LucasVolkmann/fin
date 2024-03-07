@@ -1,12 +1,11 @@
 import { createController, createValidator } from './createController';
-import { getByIdController, getByIdValidator } from './getByIdController';
+import { getUserByTokenController } from './getUserByTokenController';
 import { authController, authValidator } from './authController';
 
 export const UserController = {
   createController,
   createValidator,
-  getByIdController,
-  getByIdValidator,
+  getUserByTokenController,
   authValidator,
   authController,
 };

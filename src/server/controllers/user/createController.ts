@@ -3,9 +3,9 @@ import { validateData } from '../../shared/middlewares/validateData';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 import { createUser } from '../../services/user/createUser';
-import { UserDTOType } from '../../models/dtos/UserDTOType';
+import { InputUserDTOType } from '../../models/dtos/InputUserDTOType';
 
-interface CreateUserBodyProps extends UserDTOType {}
+interface CreateUserBodyProps extends InputUserDTOType {}
 
 export const createValidator = validateData((getSchema) => ({
   body: getSchema<CreateUserBodyProps>(yup.object().shape({

@@ -1,10 +1,10 @@
-import { User } from '../../models/User';
+import { OutputUserDTOType } from '../../models/dtos/OutputUserDTOType';
 import { InvalidCredentialsError } from '../../shared/exceptions/InvalidCredentialsError';
 import { PasswordCrypto } from '../../shared/functions/hash';
 import { getByEmailUser } from './getByEmailUser';
 
 
-export const authUser = async (email: string, password: string): Promise<User | void> => {
+export const authUser = async (email: string, password: string): Promise<OutputUserDTOType | void> => {
 
   const searchedUser = await getByEmailUser(email);
 

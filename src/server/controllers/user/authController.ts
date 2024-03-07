@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { validateData } from '../../shared/middlewares/validateData';
 import * as yup from 'yup';
 import { authUser } from '../../services/user/authUser';
+import { jwtService } from '../../shared/functions/jwtService';
 
 interface AuthBodyParams {
   email: string,
@@ -30,7 +31,7 @@ export const authController: RequestHandler = async (req: Request<unknown, unkno
     }
 
     return res.status(StatusCodes.OK).json({
-      accessToken: 'MOCK_ACCESS_TOKEN'
+      accessToken: jwtService.generateToken({ uid: user.id })
     });
   } catch (error) {
     if (error instanceof Error) {

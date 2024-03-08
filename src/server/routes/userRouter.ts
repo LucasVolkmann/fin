@@ -8,6 +8,12 @@ userRouter.post('/auth', UserController.authValidator, UserController.authContro
 
 userRouter.get('/user', ensureAuth, UserController.getUserByTokenController);
 
+userRouter.delete('/user',
+  ensureAuth,
+  UserController.deleteValidation,
+  UserController.deleteController
+);
+
 userRouter.post('/user', UserController.createValidator, UserController.createController);
 
 export default userRouter;

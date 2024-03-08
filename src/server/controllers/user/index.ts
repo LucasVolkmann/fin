@@ -1,6 +1,7 @@
 import { createController, createValidator } from './createController';
 import { getUserByTokenController } from './getUserByTokenController';
 import { authController, authValidator } from './authController';
+import { deleteController, deleteValidation } from './deleteController';
 
 export const UserController = {
   createController,
@@ -8,4 +9,6 @@ export const UserController = {
   getUserByTokenController,
   authValidator,
   authController,
+  deleteController,
+  deleteValidation,
 };

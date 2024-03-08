@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, Index } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, Index, DeleteDateColumn } from 'typeorm';
 
 @Entity()
 export class User extends BaseEntity {
@@ -17,6 +17,9 @@ export class User extends BaseEntity {
 
   @CreateDateColumn({default: () => 'NOW()'})
     registration_date!: string;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+    deletedAt?: Date;
 
   constructor(
     username: string,

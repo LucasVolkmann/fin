@@ -14,6 +14,12 @@ userRouter.delete('/user',
   UserController.deleteController
 );
 
+userRouter.put('/user',
+  ensureAuth,
+  UserController.usernameUpdateValidator,
+  UserController.usernameUpdateController
+);
+
 userRouter.post('/user', UserController.createValidator, UserController.createController);
 
 export default userRouter;

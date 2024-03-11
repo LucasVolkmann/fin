@@ -6,7 +6,7 @@ import { OutputUserDTOType } from '../../models/dtos/OutputUserDTOType';
 
 
 
-export const usernameUpdateUser = async (user: OutputUserDTOType): Promise<UpdateResult | void> => {
+export const updateUsername = async (user: OutputUserDTOType): Promise<UpdateResult | void> => {
 
   const userRepository = await AppDataSource.getRepository(User);
   const updateResult = await userRepository.update({

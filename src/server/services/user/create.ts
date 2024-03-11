@@ -3,11 +3,11 @@ import { InputUserDTOType } from '../../models/dtos/InputUserDTOType';
 import { EmailAlreadyExistsError } from '../../shared/exceptions/EmailAlreadyExistsError';
 import { InternalServerError } from '../../shared/exceptions/InternalServerError';
 import { PasswordCrypto } from '../../shared/functions/hash';
-import { getByEmailUser } from './getByEmailUser';
+import { getByEmail } from './getByEmail';
 
-export const createUser = async (userDTO: InputUserDTOType): Promise<number | void> => {
+export const create = async (userDTO: InputUserDTOType): Promise<number | void> => {
 
-  const findEmail = await getByEmailUser(userDTO.email);
+  const findEmail = await getByEmail(userDTO.email);
   if (findEmail) {
     throw new EmailAlreadyExistsError('This e-mail already exists.');
   }

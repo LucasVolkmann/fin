@@ -3,32 +3,36 @@ import { StatusCodes } from 'http-status-codes';
 import { InputUserDTOType } from '../../models/dtos/InputUserDTOType';
 import { validateData } from '../../shared/middlewares/validateData';
 import * as yup from 'yup';
-import { authUser } from '../../services/user/authUser';
-import { usernameUpdateUser } from '../../services/user/usernameUpdateUser';
+import { UserService } from '../../services/user';
 
-interface IUsernameUpdateBodyProps extends InputUserDTOType {}
+interface IUpdateUsernameBodyProps extends InputUserDTOType {}
 
-export const usernameUpdateValidator = validateData((getSchema) => ({
-  body: getSchema<IUsernameUpdateBodyProps>(yup.object().shape({
+export const updateUsernameValidator = validateData((getSchema) => ({
+  body: getSchema<IUpdateUsernameBodyProps>(yup.object().shape({
     username: yup.string().min(3).max(100).required(),
     email: yup.string().email().required(),
     password: yup.string().min(6).max(100).required(),
   })),
 }));
 
-export const usernameUpdateController: RequestHandler = async (req, res) => {
+export const updateUsername: RequestHandler = async (req, res) => {
 
   try {
     const { username, email, password } = req.body;
     if (!email || !password) {
       return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }
-    const user = await authUser(email, password);
+    const user = await UserService.auth(email, password);
     if (!user) {
       return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }
+    if (req.headers.userId && user.id !== Number(req.headers.userId)) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        errors: 'Invalid credentials.'
+      });
+    }
     user.username = username;
-    const updateResult = await usernameUpdateUser(user);
+    const updateResult = await UserService.updateUsername(user);
     if (!updateResult) {
       return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }

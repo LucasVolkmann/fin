@@ -5,7 +5,7 @@ import { InternalServerError } from '../../shared/exceptions/InternalServerError
 import { RegisterNotFoundError } from '../../shared/exceptions/RegisterNotFoundError';
 
 
-export const getByIdUser = async (id: number): Promise<OutputUserDTOType | void> => {
+export const getById = async (id: number): Promise<OutputUserDTOType | void> => {
 
   try {
     const userRepository = AppDataSource.getRepository(User);

@@ -4,7 +4,7 @@ import { OutputUserDTOType } from '../../models/dtos/OutputUserDTOType';
 
 
 
-export const getByEmailUser = async (email: string): Promise<OutputUserDTOType | null> => {
+export const getByEmail = async (email: string): Promise<OutputUserDTOType | null> => {
 
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({

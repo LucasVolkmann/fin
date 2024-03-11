@@ -1,17 +1,17 @@
-import { createController, createValidator } from './createController';
-import { getUserByTokenController } from './getUserByTokenController';
-import { authController, authValidator } from './authController';
-import { deleteController, deleteValidation } from './deleteController';
-import { usernameUpdateController, usernameUpdateValidator } from './usernameUpdateController';
+import { create, createValidator } from './create';
+import { getUserByToken } from './getUserByToken';
+import { auth, authValidator } from './auth';
+import { deleteById, deleteValidation } from './deleteById';
+import { updateUsername, updateUsernameValidator } from './updateUsername';
 
 export const UserController = {
-  createController,
+  create,
   createValidator,
-  getUserByTokenController,
+  getUserByToken,
   authValidator,
-  authController,
-  deleteController,
+  auth,
+  deleteById,
   deleteValidation,
-  usernameUpdateController,
-  usernameUpdateValidator,
+  updateUsername,
+  updateUsernameValidator,
 };

@@ -2,7 +2,7 @@ import { Request, RequestHandler } from 'express';
 import { validateData } from '../../shared/middlewares/validateData';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
-import { createUser } from '../../services/user/createUser';
+import { UserService } from '../../services/user';
 import { InputUserDTOType } from '../../models/dtos/InputUserDTOType';
 
 interface CreateUserBodyProps extends InputUserDTOType {}
@@ -15,13 +15,13 @@ export const createValidator = validateData((getSchema) => ({
   })),
 }));
 
-export const createController: RequestHandler = async (req: Request<unknown, unknown, CreateUserBodyProps>, res) => {
+export const create: RequestHandler = async (req: Request<unknown, unknown, CreateUserBodyProps>, res) => {
 
   try {
     if (!req.body) {
       return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }
-    const userId = await createUser(req.body);
+    const userId = await UserService.create(req.body);
     return res.status(StatusCodes.CREATED).json(userId);
   } catch (error) {
     if (error instanceof Error) {

@@ -2,7 +2,7 @@ import { Request, RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { validateData } from '../../shared/middlewares/validateData';
 import * as yup from 'yup';
-import { authUser } from '../../services/user/authUser';
+import { UserService } from '../../services/user';
 import { jwtService } from '../../shared/functions/jwtService';
 
 interface AuthBodyParams {
@@ -17,14 +17,14 @@ export const authValidator = validateData((getSchema) => ({
   })),
 }));
 
-export const authController: RequestHandler = async (req: Request<unknown, unknown, AuthBodyParams>, res) => {
+export const auth: RequestHandler = async (req: Request<unknown, unknown, AuthBodyParams>, res) => {
 
   try {
     const { email, password } = req.body;
     if (!email || !password){
       return res.sendStatus(StatusCodes.BAD_REQUEST);
     }
-    const user = await authUser(email, password);
+    const user = await UserService.auth(email, password);
 
     if (!user) {
       return res.sendStatus(StatusCodes.UNAUTHORIZED);

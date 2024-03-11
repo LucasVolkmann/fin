@@ -3,7 +3,7 @@ import { AppDataSource } from '../../config/data-source';
 import { User } from '../../models/User';
 
 
-export const deleteUser = async (userId: number): Promise<UpdateResult | void> => {
+export const deleteById = async (userId: number): Promise<UpdateResult | void> => {
 
   const userRepository = AppDataSource.getRepository(User);
 

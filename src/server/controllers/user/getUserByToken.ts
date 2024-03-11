@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { getByIdUser } from '../../services/user/getByIdUser';
+import { UserService } from '../../services/user';
 
-export const getUserByTokenController: RequestHandler = async (req, res) => {
+export const getUserByToken: RequestHandler = async (req, res) => {
 
   const { userId } = req.headers;
 
@@ -12,7 +12,7 @@ export const getUserByTokenController: RequestHandler = async (req, res) => {
         error: 'Error while getting user.'
       });
     }
-    const recoveredUser = await getByIdUser(Number(userId));
+    const recoveredUser = await UserService.getById(Number(userId));
     if (!recoveredUser?.id || !recoveredUser?.email || !recoveredUser?.username) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         error: 'Error while getting user. 1',

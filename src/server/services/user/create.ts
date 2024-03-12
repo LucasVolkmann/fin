@@ -1,3 +1,4 @@
+import { AppDataSource } from '../../config/data-source';
 import { User } from '../../models/User';
 import { EmailAlreadyExistsError } from '../../shared/exceptions/EmailAlreadyExistsError';
 import { InternalServerError } from '../../shared/exceptions/InternalServerError';
@@ -9,18 +10,19 @@ export const create = async (userDTO: InputUserDTOType): Promise<number | void> 
 
   const findEmail = await getByEmail(userDTO.email);
   if (findEmail) {
-    throw new EmailAlreadyExistsError('This e-mail already exists.');
+    throw new EmailAlreadyExistsError();
   }
-
   const hashedPassword = await PasswordCrypto.hashPassword(userDTO.password);
-
-  const user = new User(userDTO.username, userDTO.email, hashedPassword);
-
-  const newUser = await user.save();
-  if(!newUser.id) {
+  const userRepository = AppDataSource.getRepository(User);
+  const user = await userRepository.save({
+    username: userDTO.username,
+    email: userDTO.email,
+    password: hashedPassword,
+  });
+  if(!user?.id) {
     throw new InternalServerError('Error while creating user.');
   } else {
-    return newUser.id;
+    return user.id;
   }
 
 };

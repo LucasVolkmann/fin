@@ -1,5 +1,5 @@
 export class EmailAlreadyExistsError extends Error {
-  constructor(message: string){
-    super(message);
+  constructor(message?: string){
+    super(message || 'This e-mail already exists.');
   }
 }

@@ -1,9 +1,9 @@
 import { RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { InputUserDTOType } from '../../models/dtos/InputUserDTOType';
 import { validateData } from '../../shared/middlewares/validateData';
 import * as yup from 'yup';
 import { UserService } from '../../services/user';
+import { InputUserDTOType } from '../../types/dtos/InputUserDTOType.dto';
 
 interface IUpdateUsernameBodyProps extends InputUserDTOType {}
 

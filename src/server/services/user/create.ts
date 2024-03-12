@@ -1,8 +1,8 @@
 import { User } from '../../models/User';
-import { InputUserDTOType } from '../../models/dtos/InputUserDTOType';
 import { EmailAlreadyExistsError } from '../../shared/exceptions/EmailAlreadyExistsError';
 import { InternalServerError } from '../../shared/exceptions/InternalServerError';
 import { PasswordCrypto } from '../../shared/functions/hash';
+import { InputUserDTOType } from '../../types/dtos/InputUserDTOType.dto';
 import { getByEmail } from './getByEmail';
 
 export const create = async (userDTO: InputUserDTOType): Promise<number | void> => {

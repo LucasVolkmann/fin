@@ -1,6 +1,6 @@
 import { AppDataSource } from '../../config/data-source';
 import { User } from '../../models/User';
-import { OutputUserDTOType } from '../../models/dtos/OutputUserDTOType';
+import { OutputUserDTOType } from '../../types/dtos/OutputUserDTOType.dto';
 
 
 

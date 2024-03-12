@@ -3,7 +3,7 @@ import { validateData } from '../../shared/middlewares/validateData';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 import { UserService } from '../../services/user';
-import { InputUserDTOType } from '../../models/dtos/InputUserDTOType';
+import { InputUserDTOType } from '../../types/dtos/InputUserDTOType.dto';
 
 interface CreateUserBodyProps extends InputUserDTOType {}
 

@@ -27,7 +27,7 @@ export const deleteById: RequestHandler = async (req: Request<unknown, unknown, 
       });
     }
     const updateResult = await UserService.deleteById(user.id);
-    if (updateResult && updateResult.affected && updateResult.affected <= 0) {
+    if (!updateResult || updateResult <= 0) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         errors: 'Error while deleting register.'
       });

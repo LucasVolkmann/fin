@@ -4,23 +4,28 @@ import { ensureAuth } from '../shared/middlewares/ensureAuth';
 
 const userRouter = express.Router();
 
-userRouter.post('/auth', UserController.authValidator, UserController.auth);
+export enum UserRoutesEnum {
+  AUTH = '/auth',
+  USER = '/user'
+}
 
-userRouter.get('/user', ensureAuth, UserController.getUserByToken);
+userRouter.post(`${UserRoutesEnum.AUTH}`, UserController.authValidator, UserController.auth);
 
-userRouter.delete('/user',
+userRouter.get(`${UserRoutesEnum.USER}`, ensureAuth, UserController.getUserByToken);
+
+userRouter.delete(`${UserRoutesEnum.USER}`,
   ensureAuth,
   UserController.deleteValidation,
   UserController.deleteById
 );
 
-userRouter.put('/user',
+userRouter.put(`${UserRoutesEnum.USER}`,
   ensureAuth,
   UserController.updateUsernameValidator,
   UserController.updateUsername
 );
 
-userRouter.post('/user', UserController.createValidator, UserController.create);
+userRouter.post(`${UserRoutesEnum.USER}`, UserController.createValidator, UserController.create);
 
 export default userRouter;
 

@@ -9,9 +9,6 @@ export const deleteById = async (userId: number): Promise<number | void> => {
   const updateResult = await userRepository.softDelete({
     id: userId
   });
-  console.log(!updateResult);
-  console.log(!updateResult?.affected);
-  console.log(updateResult?.affected && updateResult.affected <= 0);
   if (!updateResult || !updateResult.affected || updateResult.affected <= 0) {
     throw new InternalServerError('Error while deleting register.');
   } else {

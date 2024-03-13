@@ -15,11 +15,11 @@ export class User extends BaseEntity {
   @Column({ length: 100 })
     password: string;
 
-  @CreateDateColumn({default: () => 'NOW()'})
+  @CreateDateColumn({default: () => process.env.NODE_ENV == 'dev?'? 'NOW()' : 'CURRENT_TIMESTAMP'})
     registration_date!: string;
 
   @DeleteDateColumn({ name: 'deleted_at' })
-    deletedAt?: Date;
+    deletedAt?: string;
 
   constructor(
     username: string,

@@ -1,0 +1,2 @@
+describe('Test [middlewares ensureAuth]', () => {
+});

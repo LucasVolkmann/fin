@@ -12,7 +12,7 @@ export const updateUsername = async (user: OutputUserDTOType): Promise<UpdateRes
   const updateResult = await userRepository.update({
     id: user.id,
   }, user);
-  if (!updateResult) {
+  if (!updateResult || !updateResult?.affected || updateResult.affected <= 0) {
     throw new InternalServerError('Error while updating register.');
   }
   return updateResult;

@@ -9,8 +9,8 @@ import { ErrorMessageEnum } from '../../exceptions/ErrorMessagesEnum';
 
 describe('Test [middlewares ensureAuth]', () => {
 
-  const MOCK_ENDPOINT = '/mock-endpoint-test';
-  app.get(MOCK_ENDPOINT, ensureAuth, (req, res) => {
+  const MOCK_URL = '/mock-endpoint-test';
+  app.get(MOCK_URL, ensureAuth, (req, res) => {
     const {headers, body: data} = req;
     res.status(200).json({
       headers,
@@ -52,7 +52,7 @@ describe('Test [middlewares ensureAuth]', () => {
   it('should return UNAUTHORIZED status and error message when a token is missing from the request', async () => {
 
     await request(app)
-      .get(MOCK_ENDPOINT)
+      .get(MOCK_URL)
       .expect(StatusCodes.UNAUTHORIZED)
       .then((res) => {
         expect(res.body).toHaveProperty('errors');
@@ -61,7 +61,7 @@ describe('Test [middlewares ensureAuth]', () => {
   it('should return UNAUTHORIZED status and error message when an invalid token type has been sent', async () => {
 
     await request(app)
-      .get(MOCK_ENDPOINT)
+      .get(MOCK_URL)
       .auth('mock-basic-token-user', 'mock-basic-token-pass', { type: 'basic' })
       .expect(StatusCodes.UNAUTHORIZED)
       .then((res) => {
@@ -71,7 +71,7 @@ describe('Test [middlewares ensureAuth]', () => {
   it('should return UNAUTHORIZED status and error message when the authorization has only `Bearer`', async () => {
 
     await request(app)
-      .get(MOCK_ENDPOINT)
+      .get(MOCK_URL)
       .auth('', { type: 'bearer' })
       .expect(StatusCodes.UNAUTHORIZED)
       .then((res) => {
@@ -81,7 +81,7 @@ describe('Test [middlewares ensureAuth]', () => {
   it('should return UNAUTHORIZED status and error message when an invalid token has been sent', async () => {
 
     await request(app)
-      .get(MOCK_ENDPOINT)
+      .get(MOCK_URL)
       .auth('invalid-token', { type: 'bearer' })
       .expect(StatusCodes.UNAUTHORIZED)
       .then((res) => {
@@ -91,7 +91,7 @@ describe('Test [middlewares ensureAuth]', () => {
   it('should return UNAUTHORIZED status and error message when an expired token has been sent', async () => {
 
     await request(app)
-      .get(MOCK_ENDPOINT)
+      .get(MOCK_URL)
       .auth(mockExpiredToken, { type: 'bearer' })
       .expect(StatusCodes.UNAUTHORIZED)
       .then((res) => {
@@ -101,7 +101,7 @@ describe('Test [middlewares ensureAuth]', () => {
   it('should set header userId and call next function when a valid token has been sent', async () => {
 
     await request(app)
-      .get(MOCK_ENDPOINT)
+      .get(MOCK_URL)
       .auth(mockValidToken, { type: 'bearer' })
       .expect(StatusCodes.OK)
       .then((res) => {

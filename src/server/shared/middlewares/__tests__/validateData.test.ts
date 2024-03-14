@@ -33,8 +33,8 @@ describe('Test [middleware validateData]', () => {
     })),
   }));
 
-  const MOCK_ENDPOINT = '/mock-endpoint-test';
-  app.get(`${MOCK_ENDPOINT}`, mockDataValidator, (req: Request, res: Response) => {
+  const MOCK_URL = '/mock-endpoint-test';
+  app.get(`${MOCK_URL}`, mockDataValidator, (req: Request, res: Response) => {
     const {params, query, body: data} = req;
     res.status(StatusCodes.OK).json({
       params,
@@ -42,7 +42,7 @@ describe('Test [middleware validateData]', () => {
       data
     });
   });
-  app.get(`${MOCK_ENDPOINT}/:numberField`, mockDataValidator, (req: Request, res: Response) => {
+  app.get(`${MOCK_URL}/:numberField`, mockDataValidator, (req: Request, res: Response) => {
     const {params, query, body: data} = req;
     res.status(StatusCodes.OK).json({
       params,
@@ -54,7 +54,7 @@ describe('Test [middleware validateData]', () => {
   it('should return error message of each missing field', async () => {
 
     await request(app)
-      .get(MOCK_ENDPOINT)
+      .get(MOCK_URL)
       .expect(StatusCodes.BAD_REQUEST)
       .then((res) => {
         expect(res.body).toHaveProperty('errors');
@@ -75,7 +75,7 @@ describe('Test [middleware validateData]', () => {
   it('should return error message of each missing field (sending one field of each path)', async () => {
 
     await request(app)
-      .get(`${MOCK_ENDPOINT}/1?stringField=mock-string`)
+      .get(`${MOCK_URL}/1?stringField=mock-string`)
       .expect(StatusCodes.BAD_REQUEST)
       .send({
         stringField: 'mock-string'
@@ -95,7 +95,7 @@ describe('Test [middleware validateData]', () => {
   it('should return specific message for field issue', async () => {
 
     await request(app)
-      .get(`${MOCK_ENDPOINT}/1?stringField=mock-string&numberField=a`)
+      .get(`${MOCK_URL}/1?stringField=mock-string&numberField=a`)
       .expect(StatusCodes.BAD_REQUEST)
       .send({
         stringField: 'mock-string',
@@ -112,7 +112,7 @@ describe('Test [middleware validateData]', () => {
   it('should call next function when the parameters are OK', async () => {
 
     await request(app)
-      .get(`${MOCK_ENDPOINT}/1?stringField=mock-string&numberField=1`)
+      .get(`${MOCK_URL}/1?stringField=mock-string&numberField=1`)
       .expect(StatusCodes.OK)
       .send({
         stringField: 'mock-string',

@@ -24,6 +24,8 @@ export const auth: RequestHandler = async (req: Request<unknown, unknown, AuthBo
     if (!email || !password){
       return res.sendStatus(StatusCodes.BAD_REQUEST);
     }
+    console.log(email, password);
+
     const user = await UserService.auth(email, password);
 
     if (!user) {

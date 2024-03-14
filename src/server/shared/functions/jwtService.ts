@@ -20,7 +20,6 @@ const generateToken = (data: IJwtData) => {
 };
 
 const verify = (token: string): IJwtData => {
-
   try {
     const decoded = jwt.verify(token, getJwtSecret());
     if (typeof decoded !== 'object') {
@@ -28,11 +27,11 @@ const verify = (token: string): IJwtData => {
     }
     return decoded as IJwtData;
   } catch (error) {
-    if (error instanceof JsonWebTokenError) {
-      throw new InvalidTokenError();
-    }
     if (error instanceof TokenExpiredError) {
       throw new CustomTokenExpiredError();
+    }
+    if (error instanceof JsonWebTokenError) {
+      throw new InvalidTokenError();
     }
     throw error;
   }

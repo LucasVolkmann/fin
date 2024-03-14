@@ -8,7 +8,7 @@ const hashPassword = async (password: string) => {
   return await hash(password, salt);
 };
 
-const verifyPassword = async (password: string, hashedPassword:string) => {
+const verifyPassword = async (password: string, hashedPassword:string): Promise<boolean> => {
   return await compare(password, hashedPassword);
 };
 

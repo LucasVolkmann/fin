@@ -2,7 +2,7 @@ import { InvalidCredentialsError } from '../../../shared/exceptions/InvalidCrede
 import { PasswordCrypto } from '../../../shared/functions/hash';
 import { auth } from '../auth';
 import { getByEmail } from '../getByEmail';
-import { MOCK_EMAIL, MOCK_PASSWORD, MOCK_USER } from '../mocks/mockUserConstant';
+import { MOCK_EMAIL, MOCK_PASSWORD, MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
 
 jest.mock('../getByEmail');
 jest.mock('../../../shared/functions/hash');

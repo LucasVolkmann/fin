@@ -5,7 +5,7 @@ import { InputUserDTOType } from '../../../types/dtos/InputUserDTOType.dto';
 import { OutputUserDTOType } from '../../../types/dtos/OutputUserDTOType.dto';
 import { create } from '../create';
 import { getByEmail } from '../getByEmail';
-import { MOCK_ID, MOCK_PASSWORD, MOCK_REGISTRATION_DATE, MOCK_USER } from '../mocks/mockUserConstant';
+import { MOCK_ID, MOCK_PASSWORD, MOCK_REGISTRATION_DATE, MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
 
 const mockSave = jest.fn()
   .mockImplementation((user: InputUserDTOType): OutputUserDTOType => ({

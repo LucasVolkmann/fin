@@ -1,7 +1,7 @@
 import { RegisterNotFoundError } from '../../../shared/exceptions/RegisterNotFoundError';
 import { OutputUserDTOType } from '../../../types/dtos/OutputUserDTOType.dto';
 import { getById } from '../getById';
-import { MOCK_ID, MOCK_USER } from '../mocks/mockUserConstant';
+import { MOCK_ID, MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
 
 const mockFindOneBy = jest.fn()
   .mockImplementation((objId: {id: number}): Promise<OutputUserDTOType | null> => {

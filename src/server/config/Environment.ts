@@ -26,6 +26,6 @@ export const TestEnvDataSourceOptions: DataSourceOptions = {
   type: 'better-sqlite3',
   database: ':memory:',
   entities: ['src/server/models/*.ts'],
-  logging: true,
+  logging: false,
   synchronize: true
 };

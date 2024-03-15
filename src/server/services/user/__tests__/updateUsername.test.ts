@@ -1,5 +1,5 @@
 import { UpdateResult } from 'typeorm';
-import { MOCK_USER } from '../mocks/mockUserConstant';
+import { MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
 import { updateUsername } from '../updateUsername';
 import { InternalServerError } from '../../../shared/exceptions/InternalServerError';
 

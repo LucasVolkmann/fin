@@ -3,14 +3,10 @@ import app from '../../../Server';
 import { UserController } from '..';
 import { StatusCodes } from 'http-status-codes';
 import { UserRoutesEnum } from '../../../routes/userRouter';
+import { MOCK_URL } from '../../../mocks/mockURL';
+import { MOCK_EMAIL, MOCK_PASSWORD, MOCK_USERNAME } from '../../../mocks/userMocks/mockUserConstant';
 
 describe('Test [controller user auth]', () => {
-
-  const MOCK_URL = '/mock';
-  const MOCK_USERNAME = 'MOCK_USERNAME';
-  const MOCK_EMAIL = 'MOCK@EMAIL.com';
-  const MOCK_PASSWORD = 'MOCK_PASSWORD';
-  app.post(MOCK_URL, UserController.auth);
 
   describe('Test endpoint', () => {
     it('should return an error if request has not an email', async () => {
@@ -75,10 +71,12 @@ describe('Test [controller user auth]', () => {
           expect(res.body.errors.body).not.toHaveProperty('email');
         });
     });
-    
+
   });
 
   describe('Test controller itself', () => {
+    app.post(MOCK_URL, UserController.auth);
+
     it('should return BAD REQUEST status when request body do not have an email', async () => {
       await request(app)
         .post(MOCK_URL)

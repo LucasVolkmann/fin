@@ -1,4 +1,5 @@
 export enum ErrorMessageEnum {
-  INVALID_TOKEN_MESSAGE = 'Invalid token.',
-  EXPIRED_TOKEN_MESSAGE = 'Token is expired.'
+  INVALID_TOKEN = 'Invalid token.',
+  EXPIRED_TOKEN = 'Token is expired.',
+  EMAIL_ALREADY_EXISTS = 'This e-mail already exists.'
 }

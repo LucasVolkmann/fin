@@ -18,7 +18,7 @@ export const ensureAuth: RequestHandler = async (req, res, next) => {
   const [type, token] = rawToken.split(' ');
   if (type != 'Bearer' || !token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
-      errors: ErrorMessageEnum.INVALID_TOKEN_MESSAGE
+      errors: ErrorMessageEnum.INVALID_TOKEN
     });
   }
 

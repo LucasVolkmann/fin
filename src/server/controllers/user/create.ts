@@ -18,10 +18,20 @@ export const createValidator = validateData((getSchema) => ({
 export const create: RequestHandler = async (req: Request<unknown, unknown, CreateUserBodyProps>, res) => {
 
   try {
-    if (!req.body) {
+    const {
+      username,
+      email,
+      password
+    } = req.body;
+    if (!username || !email || !password) {
       return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }
-    const userId = await UserService.create(req.body);
+    const newUser = {
+      username,
+      email,
+      password
+    };
+    const userId = await UserService.create(newUser);
     return res.status(StatusCodes.CREATED).json(userId);
   } catch (error) {
     if (error instanceof Error) {

@@ -17,6 +17,7 @@ export const deleteValidation = validateData((getSchema) => ({
 }));
 
 export const deleteById: RequestHandler = async (req: Request<unknown, unknown, IDeleteUserBodyParams>, res) => {
+  //FIXME: refactor to keep controllers clean and legible, take this code to the service and isolate the logic
   try {
     const userId = Number(req.headers.userId);
     const { email, password } = req.body;

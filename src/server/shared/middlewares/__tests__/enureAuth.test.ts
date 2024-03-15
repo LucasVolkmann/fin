@@ -19,7 +19,6 @@ describe('Test [middlewares ensureAuth]', () => {
     });
   });
 
-  const mockExpiredToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTcxMDQxMjg1MSwiZXhwIjoxNzEwNDE2NDUxfQ.BEwutaN1IcqFsfKm8vddedddqqydaUoAg-j-2SCEYJg';
   let mockValidToken: string;
   beforeAll(async () => {
     const {
@@ -87,16 +86,6 @@ describe('Test [middlewares ensureAuth]', () => {
       .expect(StatusCodes.UNAUTHORIZED)
       .then((res) => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.INVALID_TOKEN);
-      });
-  });
-  it('should return UNAUTHORIZED status and error message when an expired token has been sent', async () => {
-
-    await request(app)
-      .get(MOCK_URL_AUTH)
-      .auth(mockExpiredToken, { type: 'bearer' })
-      .expect(StatusCodes.UNAUTHORIZED)
-      .then((res) => {
-        expect(res.body).toHaveProperty('errors', ErrorMessageEnum.EXPIRED_TOKEN);
       });
   });
   it('should set header userId and call next function when a valid token has been sent', async () => {

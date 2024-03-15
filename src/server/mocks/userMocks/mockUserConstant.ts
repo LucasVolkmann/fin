@@ -7,6 +7,8 @@ export const MOCK_EMAIL = 'mock@email.com';
 export const MOCK_PASSWORD = 'mock_password';
 export const MOCK_REGISTRATION_DATE = 'mock_registration_date';
 
+//FIXME: refactor mocked users logic
+
 export const MOCK_OUTPUT_USER: OutputUserDTOType = {
   id: MOCK_ID,
   username: MOCK_USERNAME,

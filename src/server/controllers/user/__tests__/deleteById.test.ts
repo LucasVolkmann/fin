@@ -128,7 +128,7 @@ describe('Test [controller user deleteById]', () => {
         expect(res.body).toHaveProperty('errors', 'Error while deleting register.');
       });
   });
-  it('should return NO_CONTENT status when the user has been successfully deleted', async () => {
+  it('should return NO_CONTENT status when the user has been successful deleted', async () => {
     await request(app)
       .delete(UserRoutesEnum.USER)
       .auth(validToken, {type: 'bearer'})

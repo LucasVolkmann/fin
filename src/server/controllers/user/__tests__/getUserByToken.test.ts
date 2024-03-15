@@ -43,7 +43,7 @@ describe('Test [controller user getUserByToken]', () => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.INVALID_TOKEN);
       });
   });
-  it('should return an user with username if the search has been successfully', async () => {
+  it('should return an user with username if the search has been successful', async () => {
     await request(app)
       .get(UserRoutesEnum.USER)
       .auth(validToken, {type:'bearer'})
@@ -52,7 +52,7 @@ describe('Test [controller user getUserByToken]', () => {
         expect(res.body).toHaveProperty('username', MOCK_OUTPUT_USER.username);
       });
   });
-  it('should return an user with email if the search has been successfully', async () => {
+  it('should return an user with email if the search has been successful', async () => {
     await request(app)
       .get(UserRoutesEnum.USER)
       .auth(validToken, {type:'bearer'})
@@ -61,7 +61,7 @@ describe('Test [controller user getUserByToken]', () => {
         expect(res.body).toHaveProperty('email', MOCK_OUTPUT_USER.email);
       });
   });
-  it('should return an user with id if the search has been successfully', async () => {
+  it('should return an user with id if the search has been successful', async () => {
     await request(app)
       .get(UserRoutesEnum.USER)
       .auth(validToken, {type:'bearer'})

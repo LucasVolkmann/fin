@@ -5,7 +5,7 @@ import { InputUserDTOType } from '../../../types/dtos/InputUserDTOType.dto';
 import { OutputUserDTOType } from '../../../types/dtos/OutputUserDTOType.dto';
 import { create } from '../create';
 import { getByEmail } from '../getByEmail';
-import { MOCK_ID, MOCK_PASSWORD, MOCK_REGISTRATION_DATE, MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
+import { MOCK_ID, MOCK_PASSWORD, MOCK_REGISTRATION_DATE, MOCK_OUTPUT_USER, MOCK_INPUT_USER} from '../../../mocks/userMocks/mockUserConstant';
 
 const mockSave = jest.fn()
   .mockImplementation((user: InputUserDTOType): OutputUserDTOType => ({
@@ -27,10 +27,10 @@ describe('Test [user create]', () => {
   afterAll(() => jest.clearAllMocks());
   it('should throw EmailAlreadyExistsError when getByEmail return an email', async () => {
     (getByEmail as jest.MockedFunction<typeof getByEmail>)
-      .mockResolvedValueOnce(MOCK_USER);
+      .mockResolvedValueOnce(MOCK_OUTPUT_USER);
 
     await expect(async () => {
-      await create(MOCK_USER);
+      await create(MOCK_INPUT_USER);
     }).rejects.toThrow(new EmailAlreadyExistsError());
   });
   it('should generate and send to repository a hashed password', async () => {
@@ -41,11 +41,11 @@ describe('Test [user create]', () => {
     (PasswordCrypto.hashPassword as jest.MockedFunction<typeof PasswordCrypto.hashPassword>)
       .mockResolvedValueOnce(MOCK_HASH_PASSWORD);
 
-    await create(MOCK_USER);
+    await create(MOCK_INPUT_USER);
 
     expect(mockSave).toHaveBeenCalledWith({
-      username: MOCK_USER.username,
-      email: MOCK_USER.email,
+      username: MOCK_INPUT_USER.username,
+      email: MOCK_INPUT_USER.email,
       password: MOCK_HASH_PASSWORD,
     });
     expect(PasswordCrypto.hashPassword).toHaveBeenCalled();
@@ -58,7 +58,7 @@ describe('Test [user create]', () => {
     (PasswordCrypto.hashPassword as jest.MockedFunction<typeof PasswordCrypto.hashPassword>)
       .mockResolvedValueOnce(MOCK_HASH_PASSWORD);
 
-    const id = await create(MOCK_USER);
+    const id = await create(MOCK_INPUT_USER);
 
     expect(mockSave).toHaveBeenCalled();
     expect(id).toBeGreaterThan(0);
@@ -74,7 +74,7 @@ describe('Test [user create]', () => {
     mockSave.mockReturnValueOnce(null);
 
     await expect(async () => {
-      await create(MOCK_USER);
+      await create(MOCK_INPUT_USER);
     }).rejects.toThrow(new InternalServerError('Error while creating user.'));
     expect(mockSave).toHaveBeenCalled();
   });

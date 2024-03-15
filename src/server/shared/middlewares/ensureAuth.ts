@@ -11,7 +11,7 @@ export const ensureAuth: RequestHandler = async (req, res, next) => {
   const rawToken = req.headers.authorization;
   if (!rawToken) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
-      errors: 'Token is required for authentication.'
+      errors: ErrorMessageEnum.TOKEN_REQUIRED
     });
   }
 

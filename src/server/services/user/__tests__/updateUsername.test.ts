@@ -1,11 +1,11 @@
 import { UpdateResult } from 'typeorm';
-import { MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
+import { MOCK_OUTPUT_USER} from '../../../mocks/userMocks/mockUserConstant';
 import { updateUsername } from '../updateUsername';
 import { InternalServerError } from '../../../shared/exceptions/InternalServerError';
 
 const mockUpdate = jest.fn()
   .mockImplementation((objId: {id: number}): Promise<UpdateResult> => {
-    if (objId.id === MOCK_USER.id) {
+    if (objId.id === MOCK_OUTPUT_USER.id) {
       return Promise.resolve({
         raw: [],
         generatedMaps: [],
@@ -29,7 +29,7 @@ jest.mock('../../../config/data-source', () => ({
 
 describe('Test [user updateUsername]', () => {
   it('should return UpdateResult with affected more than 0 when no one exception was throw', async () => {
-    const userSent = MOCK_USER;
+    const userSent = MOCK_OUTPUT_USER;
 
     const updatedUser = await updateUsername(userSent);
 
@@ -39,7 +39,7 @@ describe('Test [user updateUsername]', () => {
   });
   it('should throw InternalServerError if repository.update() return UpdateResult.affected below 1', async () => {
     const userSent = {
-      ...MOCK_USER,
+      ...MOCK_OUTPUT_USER,
       id: 0,
     };
 
@@ -51,7 +51,7 @@ describe('Test [user updateUsername]', () => {
     mockUpdate.mockReturnValueOnce(null);
 
     await expect(async () => {
-      await updateUsername(MOCK_USER);
+      await updateUsername(MOCK_OUTPUT_USER);
     }).rejects.toThrow(new InternalServerError('Error while updating register.'));
   });
   it('should throw InternalServerError if repository.update() return UpdateResult without .affected', async () => {
@@ -61,7 +61,7 @@ describe('Test [user updateUsername]', () => {
     });
 
     await expect(async () => {
-      await updateUsername(MOCK_USER);
+      await updateUsername(MOCK_OUTPUT_USER);
     }).rejects.toThrow(new InternalServerError('Error while updating register.'));
   });
 });

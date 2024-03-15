@@ -2,7 +2,7 @@ import { InvalidCredentialsError } from '../../../shared/exceptions/InvalidCrede
 import { PasswordCrypto } from '../../../shared/functions/hash';
 import { auth } from '../auth';
 import { getByEmail } from '../getByEmail';
-import { MOCK_EMAIL, MOCK_PASSWORD, MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
+import { MOCK_EMAIL, MOCK_PASSWORD, MOCK_OUTPUT_USER} from '../../../mocks/userMocks/mockUserConstant';
 
 jest.mock('../getByEmail');
 jest.mock('../../../shared/functions/hash');
@@ -14,7 +14,7 @@ describe('Test [user auth]', () => {
   });
   it('should return an user when credentials are correct.', async () => {
     (getByEmail as jest.MockedFunction<typeof getByEmail>)
-      .mockResolvedValueOnce(MOCK_USER);
+      .mockResolvedValueOnce(MOCK_OUTPUT_USER);
     (PasswordCrypto.verifyPassword as jest.MockedFunction<typeof PasswordCrypto.verifyPassword>)
       .mockResolvedValueOnce(true);
     const user = await auth(MOCK_EMAIL, MOCK_PASSWORD);
@@ -31,7 +31,7 @@ describe('Test [user auth]', () => {
   });
   it('should throw InvalidCredentialsError when there is an user but password is incorrect.', async () => {
     (getByEmail as jest.MockedFunction<typeof getByEmail>)
-      .mockResolvedValueOnce(MOCK_USER);
+      .mockResolvedValueOnce(MOCK_OUTPUT_USER);
     (PasswordCrypto.verifyPassword as jest.MockedFunction<typeof PasswordCrypto.verifyPassword>)
       .mockResolvedValueOnce(false);
 

@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../Server';
 import { UserRoutesEnum } from '../../../routes/userRouter';
-import { MOCK_EMAIL, MOCK_PASSWORD, MOCK_USER, MOCK_USERNAME } from '../../../mocks/userMocks/mockUserConstant';
+import { MOCK_EMAIL, MOCK_INPUT_USER, MOCK_PASSWORD, MOCK_USERNAME } from '../../../mocks/userMocks/mockUserConstant';
 import { StatusCodes } from 'http-status-codes';
 
 describe('Test [controller user deleteById]', () => {
@@ -114,18 +114,14 @@ describe('Test [controller user deleteById]', () => {
   it('should return INTERNAL SERVER ERROR when token user id and credential user id are different', async () => {
     await request(app)
       .post(UserRoutesEnum.USER)
-      .send({
-        username: MOCK_USER.username,
-        email: MOCK_USER.email,
-        password: MOCK_USER.password
-      })
+      .send(MOCK_INPUT_USER)
       .expect(StatusCodes.CREATED);
     await request(app)
       .delete(UserRoutesEnum.USER)
       .auth(validToken, {type: 'bearer'})
       .send({
-        email: MOCK_USER.email,
-        password: MOCK_USER.password
+        email: MOCK_INPUT_USER.email,
+        password: MOCK_INPUT_USER.password
       })
       .expect(StatusCodes.INTERNAL_SERVER_ERROR)
       .then((res) => {

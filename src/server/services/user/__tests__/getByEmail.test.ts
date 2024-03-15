@@ -1,11 +1,11 @@
 import { OutputUserDTOType } from '../../../types/dtos/OutputUserDTOType.dto';
 import { getByEmail } from '../getByEmail';
-import { MOCK_EMAIL, MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
+import { MOCK_EMAIL, MOCK_OUTPUT_USER} from '../../../mocks/userMocks/mockUserConstant';
 
 
 const mockFindOneBy = jest.fn()
   .mockImplementation((): Promise<OutputUserDTOType> => {
-    return Promise.resolve(MOCK_USER);
+    return Promise.resolve(MOCK_OUTPUT_USER);
   });
 jest.mock('../../../config/data-source', () => ({
   AppDataSource: {

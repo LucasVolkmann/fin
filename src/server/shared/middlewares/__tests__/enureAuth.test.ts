@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../Server';
 import { UserRoutesEnum } from '../../../routes/userRouter';
 import { InputUserDTOType } from '../../../types/dtos/InputUserDTOType.dto';
-import { MOCK_USER } from '../../../mocks/userMocks/mockUserConstant';
+import { MOCK_INPUT_USER } from '../../../mocks/userMocks/mockUserConstant';
 import { StatusCodes } from 'http-status-codes';
 import { ensureAuth } from '../ensureAuth';
 import { ErrorMessageEnum } from '../../exceptions/ErrorMessagesEnum';
@@ -21,26 +21,16 @@ describe('Test [middlewares ensureAuth]', () => {
 
   let mockValidToken: string;
   beforeAll(async () => {
-    const {
-      username,
-      email,
-      password
-    } = MOCK_USER;
-
     await request(app)
       .post(UserRoutesEnum.USER)
-      .send({
-        username,
-        email,
-        password,
-      }as InputUserDTOType)
+      .send(MOCK_INPUT_USER)
       .expect(StatusCodes.CREATED);
 
     await request(app)
       .post(UserRoutesEnum.AUTH)
       .send({
-        email,
-        password,
+        email: MOCK_INPUT_USER.email,
+        password: MOCK_INPUT_USER.password,
       }as InputUserDTOType)
       .expect(StatusCodes.OK)
       .then((res) => {

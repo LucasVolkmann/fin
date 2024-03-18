@@ -117,7 +117,7 @@ describe('Test [controller user update username]', () => {
         email: 'MOCK_INEXISTENT@email.com',
         password: MOCK_INPUT_USER.password,
       })
-      .expect(StatusCodes.INTERNAL_SERVER_ERROR);
+      .expect(StatusCodes.BAD_REQUEST);
   });
   it('should return UNAUTHORIZED status when body user and user token are different', async () => {
     const MOCK_OTHER_USER = {

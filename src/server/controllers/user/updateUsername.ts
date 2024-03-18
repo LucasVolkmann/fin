@@ -4,6 +4,7 @@ import { validateData } from '../../shared/middlewares/validateData';
 import * as yup from 'yup';
 import { UserService } from '../../services/user';
 import { InputUserDTOType } from '../../types/dtos/InputUserDTOType.dto';
+import { ResponseError } from '../../shared/exceptions/ResponseError';
 
 interface IUpdateUsernameBodyProps extends InputUserDTOType {}
 
@@ -19,31 +20,25 @@ export const updateUsername: RequestHandler = async (req, res) => {
 
   try {
     const { username, email, password } = req.body;
-    if (!email || !password) {
-      return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
     const user = await UserService.auth(email, password);
-    if (!user) {
-      return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
-    if (req.headers.userId && user.id !== Number(req.headers.userId)) {
+
+    if (user?.id !== Number(req.headers.userId)) {
       return res.status(StatusCodes.UNAUTHORIZED).json({
         errors: 'Invalid credentials.'
       });
     }
     user.username = username;
-    const updateResult = await UserService.updateUsername(user);
-    if (!updateResult) {
-      return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
+    await UserService.updateUsername(user);
     return res.sendStatus(StatusCodes.NO_CONTENT);
+
   } catch (error) {
-    if(error instanceof Error) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    if(error instanceof ResponseError) {
+      return res.status(error.status).json({
         errors: error.message
       });
-    } else {
-      return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
     }
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: 'Unexpected error.'
+    });
   }
 };

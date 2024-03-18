@@ -1,31 +1,26 @@
 import { RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { UserService } from '../../services/user';
+import { ResponseError } from '../../shared/exceptions/ResponseError';
 
 export const getUserByToken: RequestHandler = async (req, res) => {
-
-
   try {
-    const { userId } = req.headers;
-    const recoveredUser = await UserService.getById(Number(userId));
-    if (!recoveredUser?.id || !recoveredUser?.email || !recoveredUser?.username) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        error: 'Error while getting user.',
-      });
-    }
+    const recoveredUser = await UserService.getById(Number(req.headers.userId));
+
     const user = {
-      id: recoveredUser.id,
-      username: recoveredUser.username,
-      email: recoveredUser.email,
+      id: recoveredUser!.id,
+      username: recoveredUser!.username,
+      email: recoveredUser!.email,
     };
     return res.status(StatusCodes.OK).json(user);
+
   } catch (error) {
-    //TODO: the user has been deleted
-    if (error instanceof Error) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    if (error instanceof ResponseError) {
+      return res.status(error.status).json({
         errors: error.message,
       });
     }
+    console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: 'Unexpected error.',
     });

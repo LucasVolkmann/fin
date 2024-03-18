@@ -10,6 +10,7 @@ export const getById = async (id: number): Promise<OutputUserDTOType | void> => 
   const user = await userRepository.findOneBy({
     id
   });
+
   if (user) {
     return user;
   } else {

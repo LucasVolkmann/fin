@@ -37,7 +37,7 @@ describe('Test [controller user getUserByToken]', () => {
   it('should return UNAUTHORIZED if the request has an invalid token', async () => {
     await request(app)
       .get(UserRoutesEnum.USER)
-      .auth('invlid-token', {type:'bearer'})
+      .auth('invalid-token', {type:'bearer'})
       .expect(StatusCodes.UNAUTHORIZED)
       .then((res) => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.INVALID_TOKEN);
@@ -70,7 +70,7 @@ describe('Test [controller user getUserByToken]', () => {
         expect(res.body).toHaveProperty('id', MOCK_OUTPUT_USER.id);
       });
   });
-  it('should return INTERNAL SERVER ERROR if the user has been deleted', async () => {
+  it('should return NOT FOUND if the user has been deleted', async () => {
     await request(app)
       .delete(UserRoutesEnum.USER)
       .auth(validToken, {type:'bearer'})
@@ -82,7 +82,7 @@ describe('Test [controller user getUserByToken]', () => {
     await request(app)
       .get(UserRoutesEnum.USER)
       .auth(validToken, {type:'bearer'})
-      .expect(StatusCodes.INTERNAL_SERVER_ERROR)
+      .expect(StatusCodes.NOT_FOUND)
       .then((res) => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.REGISTER_NOT_FOUND);
       });

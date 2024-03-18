@@ -27,7 +27,7 @@ export const auth: RequestHandler = async (req: Request<unknown, unknown, AuthBo
     return res.status(StatusCodes.OK).json({
       accessToken: jwtService.generateToken({ uid: user!.id })
     });
-    
+
   } catch (error) {
     if (error instanceof ResponseError) {
       return res.status(error.status).json({

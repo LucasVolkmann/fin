@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 import { UserService } from '../../services/user';
 import { InputUserDTOType } from '../../types/dtos/InputUserDTOType.dto';
+import { ResponseError } from '../../shared/exceptions/ResponseError';
 
 interface CreateUserBodyProps extends InputUserDTOType {}
 
@@ -23,22 +24,20 @@ export const create: RequestHandler = async (req: Request<unknown, unknown, Crea
       email,
       password
     } = req.body;
-    if (!username || !email || !password) {
-      return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    }
-    const newUser = {
+    const userId = await UserService.create({
       username,
       email,
       password
-    };
-    const userId = await UserService.create(newUser);
+    });
     return res.status(StatusCodes.CREATED).json(userId);
+
   } catch (error) {
-    if (error instanceof Error) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({errors: error.message});
-    } else {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({errors: 'Unexpected error.'});
+    if (error instanceof ResponseError) {
+      return res.status(error.status)
+        .send({errors: error.message});
     }
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send({errors: 'Unexpected error.'});
   }
 
 };

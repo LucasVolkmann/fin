@@ -125,7 +125,7 @@ describe('Test [controller user deleteById]', () => {
       })
       .expect(StatusCodes.INTERNAL_SERVER_ERROR)
       .then((res) => {
-        expect(res.body).toHaveProperty('errors', 'Error while deleting register.');
+        expect(res.body).toHaveProperty('errors', 'Unexpected error.');
       });
   });
   it('should return NO_CONTENT status when the user has been successful deleted', async () => {

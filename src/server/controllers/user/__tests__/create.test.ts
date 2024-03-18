@@ -85,5 +85,4 @@ describe('Test [controller user create]', () => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.EMAIL_ALREADY_EXISTS);
       });
   });
-
 });

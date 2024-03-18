@@ -138,6 +138,5 @@ describe('Test [controller user deleteById]', () => {
       })
       .expect(StatusCodes.NO_CONTENT);
   });
-
 });
 

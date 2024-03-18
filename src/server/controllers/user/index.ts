@@ -5,13 +5,13 @@ import { deleteById, deleteValidation } from './deleteById';
 import { updateUsername, updateUsernameValidator } from './updateUsername';
 
 export const UserController = {
+  auth,
+  authValidator,
   create,
   createValidator,
-  getUserByToken,
-  authValidator,
-  auth,
   deleteById,
   deleteValidation,
+  getUserByToken,
   updateUsername,
   updateUsernameValidator,
 };

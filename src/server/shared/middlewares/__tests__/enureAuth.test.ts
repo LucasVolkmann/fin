@@ -39,31 +39,31 @@ describe('Test [middlewares ensureAuth]', () => {
       });
   });
 
-  it('should return UNAUTHORIZED status and error message when a token is missing from the request', async () => {
+  it('should return BAD REQUEST status and error message when a token is missing from the request', async () => {
 
     await request(app)
       .get(MOCK_URL_AUTH)
-      .expect(StatusCodes.UNAUTHORIZED)
+      .expect(StatusCodes.BAD_REQUEST)
       .then((res) => {
         expect(res.body).toHaveProperty('errors');
       });
   });
-  it('should return UNAUTHORIZED status and error message when an invalid token type has been sent', async () => {
+  it('should return BAD REQUEST status and error message when an invalid token type has been sent', async () => {
 
     await request(app)
       .get(MOCK_URL_AUTH)
       .auth('mock-basic-token-user', 'mock-basic-token-pass', { type: 'basic' })
-      .expect(StatusCodes.UNAUTHORIZED)
+      .expect(StatusCodes.BAD_REQUEST)
       .then((res) => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.INVALID_TOKEN);
       });
   });
-  it('should return UNAUTHORIZED status and error message when the authorization has only `Bearer`', async () => {
+  it('should return BAD REQUEST status and error message when the authorization has only `Bearer`', async () => {
 
     await request(app)
       .get(MOCK_URL_AUTH)
       .auth('', { type: 'bearer' })
-      .expect(StatusCodes.UNAUTHORIZED)
+      .expect(StatusCodes.BAD_REQUEST)
       .then((res) => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.INVALID_TOKEN);
       });

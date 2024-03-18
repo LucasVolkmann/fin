@@ -1,9 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
-import { ResponseErrorInterface } from './ResponseErrorInterface';
+import { ResponseError } from './ResponseError';
 
-export class InvalidCredentialsError extends Error  implements ResponseErrorInterface {
-  status = StatusCodes.BAD_REQUEST;
+export class InvalidCredentialsError extends ResponseError {
   constructor(message?: string){
-    super(message || 'Invalid credentials.');
+    super(StatusCodes.BAD_REQUEST, message || 'Invalid credentials.');
   }
 }

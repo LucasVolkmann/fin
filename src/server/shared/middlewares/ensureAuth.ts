@@ -10,14 +10,14 @@ export const ensureAuth: RequestHandler = async (req, res, next) => {
 
   const rawToken = req.headers.authorization;
   if (!rawToken) {
-    return res.status(StatusCodes.UNAUTHORIZED).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       errors: ErrorMessageEnum.TOKEN_REQUIRED
     });
   }
 
   const [type, token] = rawToken.split(' ');
   if (type != 'Bearer' || !token) {
-    return res.status(StatusCodes.UNAUTHORIZED).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       errors: ErrorMessageEnum.INVALID_TOKEN
     });
   }

@@ -1,9 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
-import { ResponseErrorInterface } from './ResponseErrorInterface';
+import { ResponseError } from './ResponseError';
 
-export class InternalServerError extends Error implements ResponseErrorInterface {
-  status = StatusCodes.INTERNAL_SERVER_ERROR;
+export class InternalServerError extends ResponseError {
   constructor(message: string){
-    super(message);
+    super(StatusCodes.INTERNAL_SERVER_ERROR, message);
   }
 }

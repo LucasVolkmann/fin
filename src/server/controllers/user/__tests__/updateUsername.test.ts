@@ -26,11 +26,11 @@ describe('Test [controller user update username]', () => {
       });
   });
 
-  it('should return an UNAUTHORIZED status when request has not an access token', async () => {
+  it('should return an BAD REQUEST status when request has not an access token', async () => {
     await request(app)
       .put(UserRoutesEnum.USER)
       .send(MOCK_INPUT_USER)
-      .expect(StatusCodes.UNAUTHORIZED)
+      .expect(StatusCodes.BAD_REQUEST)
       .then((res) => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.TOKEN_REQUIRED);
       });

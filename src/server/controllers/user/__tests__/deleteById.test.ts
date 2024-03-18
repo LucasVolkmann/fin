@@ -33,14 +33,14 @@ describe('Test [controller user deleteById]', () => {
       });
   });
 
-  it('should return an UNAUTHORIZED status when request has not an access token', async () => {
+  it('should return an BAD REQUEST status when request has not an access token', async () => {
     await request(app)
       .delete(UserRoutesEnum.USER)
       .send({
         email: MOCK_EMAIL,
         password: MOCK_PASSWORD
       })
-      .expect(StatusCodes.UNAUTHORIZED)
+      .expect(StatusCodes.BAD_REQUEST)
       .then((res) => {
         expect(res.body).toHaveProperty('errors', 'Token is required for authentication.');
       });

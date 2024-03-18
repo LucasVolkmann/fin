@@ -1,10 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 import { ErrorMessageEnum } from './ErrorMessagesEnum';
-import { ResponseErrorInterface } from './ResponseErrorInterface';
+import { ResponseError } from './ResponseError';
 
-export class InvalidTokenError extends Error  implements ResponseErrorInterface {
-  status = StatusCodes.BAD_REQUEST;
+export class InvalidTokenError extends ResponseError {
   constructor(message?: string){
-    super(message || ErrorMessageEnum.INVALID_TOKEN);
+    super(StatusCodes.BAD_REQUEST, message || ErrorMessageEnum.INVALID_TOKEN);
   }
 }

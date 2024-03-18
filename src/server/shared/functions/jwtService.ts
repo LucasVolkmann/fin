@@ -19,6 +19,8 @@ const generateToken = (data: IJwtData) => {
   return jwt.sign(data, getJwtSecret(), { expiresIn: '1h' });
 };
 
+//FIXME: encapsulate the token generate
+
 const verify = (token: string): IJwtData => {
   try {
     const decoded = jwt.verify(token, getJwtSecret());

@@ -26,10 +26,10 @@ describe('Test [controller user getUserByToken]', () => {
       });
   });
 
-  it('should return UNAUTHORIZED if the request has not a token', async () => {
+  it('should return BAD REQUEST if the request has not a token', async () => {
     await request(app)
       .get(UserRoutesEnum.USER)
-      .expect(StatusCodes.UNAUTHORIZED)
+      .expect(StatusCodes.BAD_REQUEST)
       .then((res) => {
         expect(res.body).toHaveProperty('errors', ErrorMessageEnum.TOKEN_REQUIRED);
       });

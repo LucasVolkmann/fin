@@ -4,6 +4,7 @@ import { validateData } from '../../shared/middlewares/validateData';
 import * as yup from 'yup';
 import { UserService } from '../../services/user';
 import { jwtService } from '../../shared/functions/jwtService';
+import { ResponseError } from '../../shared/exceptions/ResponseError';
 
 interface AuthBodyParams {
   email: string,
@@ -21,28 +22,20 @@ export const auth: RequestHandler = async (req: Request<unknown, unknown, AuthBo
 
   try {
     const { email, password } = req.body;
-    if (!email || !password){
-      return res.sendStatus(StatusCodes.BAD_REQUEST);
-    }
-
     const user = await UserService.auth(email, password);
 
-    if (!user) {
-      return res.sendStatus(StatusCodes.UNAUTHORIZED);
-    }
-
     return res.status(StatusCodes.OK).json({
-      accessToken: jwtService.generateToken({ uid: user.id })
+      accessToken: jwtService.generateToken({ uid: user!.id })
     });
+    
   } catch (error) {
-    if (error instanceof Error) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    if (error instanceof ResponseError) {
+      return res.status(error.status).json({
         errors: error.message
       });
-    } else {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        errors: 'Unexpected error.'
-      });
     }
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: 'Unexpected error.'
+    });
   }
 };

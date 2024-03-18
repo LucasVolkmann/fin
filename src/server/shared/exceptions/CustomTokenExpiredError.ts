@@ -1,10 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 import { ErrorMessageEnum } from './ErrorMessagesEnum';
-import { ResponseErrorInterface } from './ResponseErrorInterface';
+import { ResponseError } from './ResponseError';
 
-export class CustomTokenExpiredError extends Error implements ResponseErrorInterface {
-  public status = StatusCodes.UNAUTHORIZED;
+export class CustomTokenExpiredError extends ResponseError {
   constructor(message?: string){
-    super(message || ErrorMessageEnum.EXPIRED_TOKEN);
+    super(StatusCodes.UNAUTHORIZED, message || ErrorMessageEnum.EXPIRED_TOKEN);
   }
 }

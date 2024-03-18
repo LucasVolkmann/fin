@@ -89,7 +89,7 @@ describe('Test [controller user auth]', () => {
         .send({ email: MOCK_EMAIL })
         .expect(StatusCodes.BAD_REQUEST);
     });
-    it('should return INTERNAL SERVER ERROR status when user do not exists', async () => {
+    it('should return BAD REQUEST status when user not found', async () => {
 
       await request(app)
         .post(MOCK_URL)
@@ -97,7 +97,7 @@ describe('Test [controller user auth]', () => {
           email: MOCK_EMAIL,
           password: MOCK_PASSWORD,
         })
-        .expect(StatusCodes.INTERNAL_SERVER_ERROR)
+        .expect(StatusCodes.BAD_REQUEST)
         .then((res) => {
           expect(res.body).toHaveProperty('errors');
         });

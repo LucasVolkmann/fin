@@ -1,10 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
-import { ResponseErrorInterface } from './ResponseErrorInterface';
 import { ErrorMessageEnum } from './ErrorMessagesEnum';
+import { ResponseError } from './ResponseError';
 
-export class EmailAlreadyExistsError extends Error implements ResponseErrorInterface {
-  status = StatusCodes.CONFLICT;
+export class EmailAlreadyExistsError extends ResponseError {
   constructor(message?: string){
-    super(message || ErrorMessageEnum.EMAIL_ALREADY_EXISTS);
+    super(StatusCodes.CONFLICT, message || ErrorMessageEnum.EMAIL_ALREADY_EXISTS);
   }
 }

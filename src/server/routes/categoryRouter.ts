@@ -4,7 +4,10 @@ import { CategoryController } from '../controllers/category';
 
 const categoryRoutes = Router();
 
-categoryRoutes.get('/category');
+categoryRoutes.get('/category',
+  ensureAuth,
+  CategoryController.getAll
+);
 
 categoryRoutes.post('/category',
   ensureAuth,

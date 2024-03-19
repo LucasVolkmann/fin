@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, Index, DeleteDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, DeleteDateColumn, OneToMany } from 'typeorm';
+import { Category } from './Category';
 
 @Entity()
-export class User extends BaseEntity {
+export class User {
   @PrimaryGeneratedColumn()
     id!: number;
 
@@ -15,6 +16,9 @@ export class User extends BaseEntity {
   @Column({ length: 100 })
     password: string;
 
+  @OneToMany(() => Category, (category) => category.user)
+    categories?: Category[];
+
   @CreateDateColumn({default: () => process.env.NODE_ENV == 'dev?'? 'NOW()' : 'CURRENT_TIMESTAMP'})
     registration_date!: string;
 
@@ -26,7 +30,6 @@ export class User extends BaseEntity {
     email: string,
     password: string
   ) {
-    super();
     this.username = username;
     this.email = email;
     this.password = password;

@@ -1,5 +1,4 @@
 import { DataSourceOptions } from 'typeorm';
-import { User } from '../models/User';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -17,7 +16,7 @@ export const DevEnvDataSourceOptions: DataSourceOptions = {
   database: DATABASE_NAME,
   synchronize: true,
   logging: false,
-  entities: [User],
+  entities: ['src/server/models/*.ts'],
   subscribers: [],
   migrations: [],
 };

@@ -7,14 +7,14 @@ export class User {
     id!: number;
 
   @Column({ length: 100 })
-    username: string;
+    username!: string;
 
   @Index()
   @Column({ unique: true, length: 100 })
-    email: string;
+    email!: string;
 
   @Column({ length: 100 })
-    password: string;
+    password!: string;
 
   @OneToMany(() => Category, (category) => category.user)
     categories?: Category[];
@@ -24,15 +24,5 @@ export class User {
 
   @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt?: string;
-
-  constructor(
-    username: string,
-    email: string,
-    password: string
-  ) {
-    this.username = username;
-    this.email = email;
-    this.password = password;
-  }
 
 }

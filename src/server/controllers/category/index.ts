@@ -1,13 +1,14 @@
 import { create, createValidator } from './create';
-import { update, updateValidator } from './update';
+import { deleteById, deleteByIdValidator } from './deleteById';
 import { getAll, getAllValidator } from './getAll';
 import { getById, getByIdValidator } from './getById';
-import { deleteById } from './deleteById';
+import { update, updateValidator } from './update';
 
 export const CategoryController = {
   create,
   createValidator,
   deleteById,
+  deleteByIdValidator,
   getAll,
   getAllValidator,
   getById,

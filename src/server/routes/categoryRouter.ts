@@ -28,7 +28,11 @@ categoryRoutes.get('/category/:id',
   CategoryController.getById
 );
 
-categoryRoutes.delete('/category/:id');
+categoryRoutes.delete('/category/:id',
+  ensureAuth,
+  CategoryController.deleteByIdValidator,
+  CategoryController.deleteById
+);
 
 export default categoryRoutes;
 

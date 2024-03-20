@@ -93,7 +93,7 @@ describe('Test [controller user auth]', () => {
         expect(res.body).toHaveProperty('errors');
       });
   });
-  it('should return OK status and an access token when [UserService.auth] return an user', async () => {
+  it('should return OK status and an access token when [service user Service.auth] return an user', async () => {
     await request(app)
       .post(UserRoutesEnum.USER)
       .send({

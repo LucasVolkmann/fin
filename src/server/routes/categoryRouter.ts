@@ -4,31 +4,36 @@ import { CategoryController } from '../controllers/category';
 
 const categoryRoutes = Router();
 
-categoryRoutes.get('/category',
+export enum CategoryRoutesEnum {
+  CATEGORY = '/category',
+  CATEGORY_ID = '/category/:id',
+}
+
+categoryRoutes.get(CategoryRoutesEnum.CATEGORY,
   ensureAuth,
   CategoryController.getAllValidator,
   CategoryController.getAll
 );
 
-categoryRoutes.post('/category',
+categoryRoutes.post(CategoryRoutesEnum.CATEGORY,
   ensureAuth,
   CategoryController.createValidator,
   CategoryController.create
 );
 
-categoryRoutes.put('/category',
+categoryRoutes.put(CategoryRoutesEnum.CATEGORY,
   ensureAuth,
   CategoryController.updateValidator,
   CategoryController.update
 );
 
-categoryRoutes.get('/category/:id',
+categoryRoutes.get(CategoryRoutesEnum.CATEGORY_ID,
   ensureAuth,
   CategoryController.getByIdValidator,
   CategoryController.getById
 );
 
-categoryRoutes.delete('/category/:id',
+categoryRoutes.delete(CategoryRoutesEnum.CATEGORY_ID,
   ensureAuth,
   CategoryController.deleteByIdValidator,
   CategoryController.deleteById

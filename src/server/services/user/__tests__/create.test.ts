@@ -1,8 +1,8 @@
 import { EmailAlreadyExistsError } from '../../../shared/exceptions/EmailAlreadyExistsError';
 import { InternalServerError } from '../../../shared/exceptions/InternalServerError';
 import { PasswordCrypto } from '../../../shared/functions/hash';
-import { InputUserDTOType } from '../../../types/dtos/InputUserDTOType.dto';
-import { OutputUserDTOType } from '../../../types/dtos/OutputUserDTOType.dto';
+import { InputUserDTOType } from '../../../types/dtos/user/InputUserDTOType.dto';
+import { OutputUserDTOType } from '../../../types/dtos/user/OutputUserDTOType.dto';
 import { create } from '../create';
 import { getByEmail } from '../getByEmail';
 import { MOCK_ID, MOCK_PASSWORD, MOCK_REGISTRATION_DATE, MOCK_OUTPUT_USER, MOCK_INPUT_USER} from '../../../mocks/userMocks/mockUserConstant';

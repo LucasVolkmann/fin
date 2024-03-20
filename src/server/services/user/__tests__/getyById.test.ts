@@ -1,5 +1,5 @@
 import { RegisterNotFoundError } from '../../../shared/exceptions/RegisterNotFoundError';
-import { OutputUserDTOType } from '../../../types/dtos/OutputUserDTOType.dto';
+import { OutputUserDTOType } from '../../../types/dtos/user/OutputUserDTOType.dto';
 import { getById } from '../getById';
 import { MOCK_ID, MOCK_OUTPUT_USER} from '../../../mocks/userMocks/mockUserConstant';
 

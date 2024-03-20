@@ -2,7 +2,7 @@ import { UpdateResult } from 'typeorm';
 import { AppDataSource } from '../../config/data-source';
 import { User } from '../../models/User';
 import { InternalServerError } from '../../shared/exceptions/InternalServerError';
-import { OutputUserDTOType } from '../../types/dtos/OutputUserDTOType.dto';
+import { OutputUserDTOType } from '../../types/dtos/user/OutputUserDTOType.dto';
 
 
 

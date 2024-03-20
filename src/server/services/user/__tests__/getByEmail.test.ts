@@ -1,4 +1,4 @@
-import { OutputUserDTOType } from '../../../types/dtos/OutputUserDTOType.dto';
+import { OutputUserDTOType } from '../../../types/dtos/user/OutputUserDTOType.dto';
 import { getByEmail } from '../getByEmail';
 import { MOCK_EMAIL, MOCK_OUTPUT_USER} from '../../../mocks/userMocks/mockUserConstant';
 

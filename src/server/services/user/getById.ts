@@ -1,7 +1,7 @@
 import { AppDataSource } from '../../config/data-source';
 import { User } from '../../models/User';
 import { RegisterNotFoundError } from '../../shared/exceptions/RegisterNotFoundError';
-import { OutputUserDTOType } from '../../types/dtos/OutputUserDTOType.dto';
+import { OutputUserDTOType } from '../../types/dtos/user/OutputUserDTOType.dto';
 
 
 export const getById = async (id: number): Promise<OutputUserDTOType | void> => {

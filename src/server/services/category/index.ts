@@ -3,7 +3,7 @@ import { create } from './create';
 import { getAll } from './getAll';
 import { getByName } from './getByName';
 // import { getById } from './getById';
-// import { updateUsername } from './updateUsername';
+import { update } from './update';
 
 export const CategoryService = {
   create,
@@ -11,5 +11,5 @@ export const CategoryService = {
   getAll,
   getByName,
   // getById,
-  // updateUsername,
+  update,
 };

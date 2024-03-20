@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../Server';
 import { UserRoutesEnum } from '../../../routes/userRouter';
-import { InputUserDTOType } from '../../../types/dtos/InputUserDTOType.dto';
+import { InputUserDTOType } from '../../../types/dtos/user/InputUserDTOType.dto';
 import { MOCK_INPUT_USER } from '../../../mocks/userMocks/mockUserConstant';
 import { StatusCodes } from 'http-status-codes';
 import { ensureAuth } from '../ensureAuth';

@@ -15,7 +15,11 @@ categoryRoutes.post('/category',
   CategoryController.create
 );
 
-categoryRoutes.put('/category');
+categoryRoutes.put('/category',
+  ensureAuth,
+  CategoryController.updateValidator,
+  CategoryController.update
+);
 
 categoryRoutes.get('/category/:id');
 

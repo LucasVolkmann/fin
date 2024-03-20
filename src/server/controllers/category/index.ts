@@ -1,5 +1,5 @@
 import { create, createValidator } from './create';
-import { update } from './update';
+import { update, updateValidator } from './update';
 import { getAll } from './getAll';
 import { deleteById } from './deleteById';
 import { getByName } from './getByName';
@@ -12,4 +12,5 @@ export const CategoryController = {
   getAll,
   getByName,
   update,
+  updateValidator,
 };

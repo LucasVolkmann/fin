@@ -6,13 +6,13 @@ import { User } from './User';
 @Index(['name', 'user'], { unique: true })
 export class Category {
   @PrimaryGeneratedColumn()
-    id?: number;
+    id!: number;
 
   @Column({ length: 100, nullable: false })
-    name: string;
+    name!: string;
 
   @ManyToOne(() => User, (user) => user.categories, { nullable: false })
-    user: User;
+    user!: User;
 
   constructor(
     name: string,

@@ -1,5 +1,5 @@
-import { InputUserDTOType } from '../../types/dtos/InputUserDTOType.dto';
-import { OutputUserDTOType } from '../../types/dtos/OutputUserDTOType.dto';
+import { InputUserDTOType } from '../../types/dtos/user/InputUserDTOType.dto';
+import { OutputUserDTOType } from '../../types/dtos/user/OutputUserDTOType.dto';
 
 export const MOCK_ID = 1;
 export const MOCK_USERNAME = 'mock_username';

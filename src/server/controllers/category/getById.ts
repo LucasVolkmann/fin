@@ -5,23 +5,23 @@ import { ResponseError } from '../../shared/exceptions/ResponseError';
 import { validateData } from '../../shared/middlewares/validateData';
 import * as yup from 'yup';
 
-interface IQueryProps {
-  filter?: string
+interface IParamsProps {
+  id?: number
 }
 
-export const getAllValidator = validateData((getSchema) => ({
-  query: getSchema<IQueryProps>(yup.object().shape({
-    filter: yup.string().min(3).max(100)
+export const getByIdValidator = validateData((getSchema) => ({
+  params: getSchema<IParamsProps>(yup.object().shape({
+    id: yup.number().integer().required().moreThan(0)
   }))
 }));
 
-export const getAll: RequestHandler = async (req: Request<unknown, unknown, unknown, IQueryProps>, res) => {
+export const getById: RequestHandler = async (req: Request<IParamsProps>, res) => {
   try {
     const { userId } = req.headers;
-    const { filter } = req.query;
-    const allCategories = await CategoryService.getAll(Number(userId), filter);
+    const { id } = req.params;
+    const category = await CategoryService.getById(Number(userId), Number(id));
 
-    return res.status(StatusCodes.OK).json(allCategories);
+    return res.status(StatusCodes.OK).json(category);
 
   } catch (error) {
 

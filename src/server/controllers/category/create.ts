@@ -29,7 +29,6 @@ export const create: RequestHandler = async (req: Request<unknown, unknown, IBod
         errors: error.message
       });
     }
-    console.log(error);
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 

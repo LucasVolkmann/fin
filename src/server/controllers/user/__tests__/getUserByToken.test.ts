@@ -84,7 +84,7 @@ describe('Test [controller user getUserByToken]', () => {
       .auth(validToken, {type:'bearer'})
       .expect(StatusCodes.NOT_FOUND)
       .then((res) => {
-        expect(res.body).toHaveProperty('errors', ErrorMessageEnum.REGISTER_NOT_FOUND);
+        expect(res.body).toHaveProperty('errors', 'The user in token was not found.');
       });
   });
 });

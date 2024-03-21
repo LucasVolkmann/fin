@@ -1,10 +1,12 @@
-
 import { RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { jwtService } from '../functions/jwtService';
 import { CustomTokenExpiredError } from '../exceptions/CustomTokenExpiredError';
 import { InvalidTokenError } from '../exceptions/InvalidTokenError';
 import { ErrorMessageEnum } from '../exceptions/ErrorMessagesEnum';
+import { UserService } from '../../services/user';
+import { RegisterNotFoundError } from '../exceptions/RegisterNotFoundError';
+
 
 export const ensureAuth: RequestHandler = async (req, res, next) => {
 
@@ -24,6 +26,7 @@ export const ensureAuth: RequestHandler = async (req, res, next) => {
 
   try {
     const decodedToken = jwtService.verify(token);
+    await UserService.getById(decodedToken.uid);
     req.headers.userId = decodedToken.uid.toString();
     next();
   } catch (error) {
@@ -31,6 +34,11 @@ export const ensureAuth: RequestHandler = async (req, res, next) => {
       error instanceof InvalidTokenError) {
       return res.status(StatusCodes.UNAUTHORIZED).json({
         errors: error.message
+      });
+    }
+    if (error instanceof RegisterNotFoundError) {
+      return res.status(error.status).json({
+        errors: 'The user in token was not found.'
       });
     }
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

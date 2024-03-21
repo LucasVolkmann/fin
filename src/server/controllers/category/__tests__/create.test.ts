@@ -78,7 +78,7 @@ describe('Test [controller category create]', () => {
       })
       .expect(StatusCodes.NOT_FOUND)
       .then((res) => {
-        expect(res.body).toHaveProperty('errors', 'Register not found.');
+        expect(res.body).toHaveProperty('errors', 'The user in token was not found.');
       });
   });
 });

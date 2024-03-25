@@ -1,0 +1,26 @@
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, ManyToOne } from 'typeorm';
+import { Category } from './Category';
+import { User } from './User';
+
+@Entity()
+export class Transaction {
+  @PrimaryGeneratedColumn()
+    id!: number;
+
+  @Index()
+  @ManyToOne(() => User, (user) => user.transactions)
+    user!: User;
+
+  @Column()
+    amount!: number;
+
+  @Column({ length: 250 })
+    details!: string;
+
+  @CreateDateColumn({default: () => process.env.NODE_ENV == 'dev?'? 'NOW()' : 'CURRENT_TIMESTAMP'})
+    date!: Date;
+
+  @Index()
+  @ManyToOne(() => Category, (category) => category.transactions)
+    category!: Category;
+}

@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, DeleteDateColumn, OneToMany } from 'typeorm';
 import { Category } from './Category';
+import { Transaction } from './Transaction';
 
 @Entity()
 export class User {
@@ -18,6 +19,9 @@ export class User {
 
   @OneToMany(() => Category, (category) => category.user)
     categories?: Category[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.user)
+    transactions?: Transaction[];
 
   @CreateDateColumn({default: () => process.env.NODE_ENV == 'dev?'? 'NOW()' : 'CURRENT_TIMESTAMP'})
     registration_date!: string;

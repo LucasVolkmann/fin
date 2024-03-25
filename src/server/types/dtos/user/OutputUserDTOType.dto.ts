@@ -1,7 +1,7 @@
 import { Category } from '../../../models/Category';
 
 export interface OutputUserDTOType {
-  id: number;
+  id?: number;
   username: string;
   email: string;
   password: string;

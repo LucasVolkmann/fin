@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { UserService } from '../../services/user';
 import { jwtService } from '../../shared/functions/jwtService';
 import { ResponseError } from '../../shared/exceptions/ResponseError';
+import { InternalServerError } from '../../shared/exceptions/InternalServerError';
 
 interface AuthBodyParams {
   email: string,
@@ -24,6 +25,9 @@ export const auth: RequestHandler = async (req: Request<unknown, unknown, AuthBo
     const { email, password } = req.body;
     const user = await UserService.auth(email, password);
 
+    if (!user?.id) {
+      throw new InternalServerError('Error while authentication user.');
+    }
     return res.status(StatusCodes.OK).json({
       accessToken: jwtService.generateToken({ uid: user!.id })
     });

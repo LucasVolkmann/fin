@@ -5,7 +5,7 @@ import { Transaction } from './Transaction';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-    id!: number;
+    id?: number;
 
   @Column({ length: 100 })
     username!: string;

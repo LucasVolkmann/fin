@@ -5,19 +5,19 @@ import { User } from './User';
 @Entity()
 export class Transaction {
   @PrimaryGeneratedColumn()
-    id!: number;
+    id?: number;
 
   @Index()
   @ManyToOne(() => User, (user) => user.transactions)
     user!: User;
 
-  @Column()
+  @Column({ type: 'double precision' })
     amount!: number;
 
   @Column({ length: 250 })
     details!: string;
 
-  @CreateDateColumn({default: () => process.env.NODE_ENV == 'dev?'? 'NOW()' : 'CURRENT_TIMESTAMP'})
+  @CreateDateColumn()
     date!: Date;
 
   @Index()

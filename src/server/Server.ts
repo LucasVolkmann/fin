@@ -2,7 +2,6 @@ import express, { json } from 'express';
 import {
   userRouter,
   transactionRouter,
-  recurrentTransactionRouter,
   categoryRouter } from './routes';
 import { StatusCodes } from 'http-status-codes';
 
@@ -16,7 +15,6 @@ app.get('/', (_, res) => {
 
 app.use(userRouter);
 app.use(transactionRouter);
-app.use(recurrentTransactionRouter);
 app.use(categoryRouter);
 
 export default app;

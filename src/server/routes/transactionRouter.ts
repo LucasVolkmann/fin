@@ -10,7 +10,8 @@ export enum TransactionRoutesEnum {
 }
 
 transactionRouter.get(TransactionRoutesEnum.TRANSACTION,
-  TransactionController.getAll
+  ensureAuth,
+  TransactionController.getAll,
 );
 
 transactionRouter.post(TransactionRoutesEnum.TRANSACTION,

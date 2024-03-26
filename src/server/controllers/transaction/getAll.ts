@@ -5,7 +5,7 @@ import { TransactionService } from '../../services/transaction';
 
 
 export const getAll: RequestHandler = async (req, res) => {
-
+  // FIXME: return category 
   try {
     const { userId } = req.headers;
     const allTransactions = await TransactionService.getAll(Number(userId));

@@ -18,13 +18,14 @@ export const DevEnvDataSourceOptions: DataSourceOptions = {
   logging: false,
   entities: ['src/server/models/*.ts'],
   subscribers: [],
-  migrations: [],
+  migrations: ['src/server/config/migrations/*.ts'],
 };
 
 export const TestEnvDataSourceOptions: DataSourceOptions = {
   type: 'better-sqlite3',
   database: ':memory:',
   entities: ['src/server/models/*.ts'],
+  migrations: ['./migrations'],
   logging: false,
   synchronize: true
 };

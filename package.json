@@ -6,6 +6,8 @@
   "scripts": {
     "db:up": "cd docker && docker-compose up -d",
     "db:down": "cd docker && docker-compose down",
+    "db:migration:up": "npx typeorm-ts-node-commonjs migration:run -d src/server/config/data-source.ts",
+    "db:migration:down": "npx typeorm-ts-node-commonjs migration:revert -d src/server/config/data-source.ts",
     "test": "jest",
     "test:cov": "jest --collect-coverage",
     "dev": "ts-node-dev ./src",

@@ -11,7 +11,7 @@ interface IBodyProps {
   amount: number,
   details: string,
   date: Date,
-  id_category: number,
+  categoryId: number,
 }
 
 export const createValidator = validateData((getSchema) => ({
@@ -19,7 +19,7 @@ export const createValidator = validateData((getSchema) => ({
     amount: yup.number().required(),
     details: yup.string().required().max(250),
     date: yup.date().required(),
-    id_category: yup.number().required().moreThan(0),
+    categoryId: yup.number().required().moreThan(0),
   }))
 }));
 
@@ -31,20 +31,22 @@ export const create: RequestHandler = async (req: Request<unknown, unknown, IBod
       amount,
       details,
       date,
-      id_category
+      categoryId
     } = req.body;
 
     const category = new Category();
-    category.id = id_category;
+    category.id = categoryId;
     const user = new User();
     user.id = Number(userId);
 
+    //FIXME: Refatorar
     const transactionId = await TransactionService.create({
       user,
       amount,
       details,
       date,
-      category
+      category,
+      categoryId
     });
     return res.status(StatusCodes.CREATED).json(transactionId);
 

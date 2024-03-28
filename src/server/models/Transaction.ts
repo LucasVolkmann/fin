@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, ManyToOne, RelationId } from 'typeorm';
 import { Category } from './Category';
 import { User } from './User';
 
@@ -23,4 +23,7 @@ export class Transaction {
   @Index()
   @ManyToOne(() => Category, (category) => category.transactions)
     category!: Category;
+
+  @RelationId((transaction: Transaction) => transaction.category)
+    categoryId!: number;
 }

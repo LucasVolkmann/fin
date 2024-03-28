@@ -25,7 +25,9 @@ transactionRouter.put(TransactionRoutesEnum.TRANSACTION,
 );
 
 transactionRouter.get(TransactionRoutesEnum.TRANSACTION_ID,
-  TransactionController.getById
+  ensureAuth,
+  TransactionController.getByIdValidator,
+  TransactionController.getById,
 );
 
 transactionRouter.delete(TransactionRoutesEnum.TRANSACTION_ID,

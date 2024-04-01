@@ -23,8 +23,6 @@ export const getById: RequestHandler = async (req, res) => {
     return res.status(StatusCodes.OK).json(transaction);
 
   } catch (error) {
-    console.log(error);
-
     if (error instanceof ResponseError) {
       return res.status(error.status).json({
         error: error.message

@@ -9,7 +9,7 @@ export class Transaction {
 
   @Index()
   @ManyToOne(() => User, (user) => user.transactions)
-    user!: User;
+    user?: User;
 
   @Column({ type: 'double precision' })
     amount!: number;
@@ -22,8 +22,8 @@ export class Transaction {
 
   @Index()
   @ManyToOne(() => Category, (category) => category.transactions)
-    category!: Category;
+    category?: Category;
 
   @RelationId((transaction: Transaction) => transaction.category)
-    categoryId!: number;
+    categoryId?: number;
 }

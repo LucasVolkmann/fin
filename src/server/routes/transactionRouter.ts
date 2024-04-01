@@ -21,7 +21,9 @@ transactionRouter.post(TransactionRoutesEnum.TRANSACTION,
 );
 
 transactionRouter.put(TransactionRoutesEnum.TRANSACTION,
-  TransactionController.update
+  ensureAuth,
+  TransactionController.updateValidator,
+  TransactionController.update,
 );
 
 transactionRouter.get(TransactionRoutesEnum.TRANSACTION_ID,

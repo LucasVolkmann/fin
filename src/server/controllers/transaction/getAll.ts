@@ -2,14 +2,26 @@ import { RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { ResponseError } from '../../shared/exceptions/ResponseError';
 import { TransactionService } from '../../services/transaction';
-
+import moment from 'moment';
 
 export const getAll: RequestHandler = async (req, res) => {
 
   try {
     const { userId } = req.headers;
     const allTransactions = await TransactionService.getAll(Number(userId));
-    return res.status(StatusCodes.OK).json(allTransactions);
+
+    if (!allTransactions) {
+      throw new Error();
+    }
+    const returnValue = allTransactions.sort((transactionA, transactionB) => {
+      if (moment(transactionA.date).isBefore(moment(transactionB.date))) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+
+    return res.status(StatusCodes.OK).json(returnValue);
 
   } catch (error) {
     if (error instanceof ResponseError) {

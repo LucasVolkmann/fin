@@ -29,7 +29,9 @@ export const create: RequestHandler = async (req: Request<unknown, unknown, IBod
         errors: error.message
       });
     }
-    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: 'Unexpected error.'
+    });
   }
 
 };

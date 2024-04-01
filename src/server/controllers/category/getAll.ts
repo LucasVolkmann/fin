@@ -30,7 +30,9 @@ export const getAll: RequestHandler = async (req: Request<unknown, unknown, unkn
         errors: error.message
       });
     }
-    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: 'Unexpected error.'
+    });
   }
 
 };

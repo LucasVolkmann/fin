@@ -33,7 +33,9 @@ transactionRouter.get(TransactionRoutesEnum.TRANSACTION_ID,
 );
 
 transactionRouter.delete(TransactionRoutesEnum.TRANSACTION_ID,
-  TransactionController.deleteById
+  ensureAuth,
+  TransactionController.deleteByIdValidator,
+  TransactionController.deleteById,
 );
 
 export default transactionRouter;

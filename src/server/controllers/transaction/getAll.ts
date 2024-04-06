@@ -1,14 +1,33 @@
-import { RequestHandler } from 'express';
+import { Request, RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { ResponseError } from '../../shared/exceptions/ResponseError';
 import { TransactionService } from '../../services/transaction';
 import moment from 'moment';
+import { validateData } from '../../shared/middlewares/validateData';
+import * as yup from 'yup';
 
-export const getAll: RequestHandler = async (req, res) => {
+
+interface IQueryProps {
+  month?: number
+}
+
+export const getAllValidator = validateData((getSchema) => ({
+  query: getSchema<IQueryProps>(yup.object().shape({
+    month: yup.number().integer().required().moreThan(0)
+  }))
+}));
+
+export const getAll: RequestHandler = async (req: Request<IQueryProps>, res) => {
 
   try {
     const { userId } = req.headers;
-    const allTransactions = await TransactionService.getAll(Number(userId));
+    let month: number | undefined;
+    if (req.query.month) {
+      month = Number(req.query.month);
+    } else {
+      month = undefined;
+    }
+    const allTransactions = await TransactionService.getAll(Number(userId), month);
 
     if (!allTransactions) {
       throw new Error();

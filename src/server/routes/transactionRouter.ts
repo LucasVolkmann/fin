@@ -11,6 +11,7 @@ export enum TransactionRoutesEnum {
 
 transactionRouter.get(TransactionRoutesEnum.TRANSACTION,
   ensureAuth,
+  TransactionController.getAllValidator,
   TransactionController.getAll,
 );
 

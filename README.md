@@ -12,7 +12,7 @@ Descrição do projeto: Um app simples para controlar finanças pessoais.
 #### Links:
 - [[ Repositório do backend ]](https://github.com/LucasVolkmann/fin-backend)
 - [ Url do backend (ainda não implementado) ]
-- [ Repositório do frontend (ainda não iniciado) ]
+- [[ Repositório do frontend ]](https://github.com/LucasVolkmann/fin-frontend)
 - [ Url do frontend (ainda não implementado) ]
 
 ---

@@ -34,8 +34,4 @@ Este é um app para controle de finança pessoais. Onde cada usuário pode criar
 
 ---
 #### Estrutura do Banco de Dados e Endpoints:
-![Logo do Markdown](docs/database-model.png)
-
-
-
-
+![Modelagem do banco de dados](docs/database-model.png)

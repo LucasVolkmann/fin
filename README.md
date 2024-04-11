@@ -32,11 +32,6 @@ Descrição do projeto: Um app simples para controlar finanças pessoais.
 #### Descrição detalhada:
 Este é um app para controle de finança pessoais. Onde cada usuário pode criar uma conta. Cada conta pode adicionar e remover transações. Cada transação tem uma categoria.
 
-Posteriormente o front end do app terá um dashboard informando números referentes as transações do usuário. Incluindo:
-- Razão entre o dinheiro gasto em cada categoria em relação ao total gasto
-- Total gasto por período
-- Média de gastos de uma categoria por dia/semana/mês
-
 ---
 #### Estrutura do Banco de Dados e Endpoints:
 ![Logo do Markdown](docs/database-model.png)

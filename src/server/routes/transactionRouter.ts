@@ -15,6 +15,11 @@ transactionRouter.get(TransactionRoutesEnum.TRANSACTION,
   TransactionController.getAll,
 );
 
+transactionRouter.get(`${TransactionRoutesEnum.TRANSACTION}/history`,
+  ensureAuth,
+  TransactionController.getMonthlyHistory,
+);
+
 transactionRouter.post(TransactionRoutesEnum.TRANSACTION,
   ensureAuth,
   TransactionController.createValidator,

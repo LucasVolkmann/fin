@@ -13,7 +13,7 @@ interface IQueryProps {
 
 export const getAllValidator = validateData((getSchema) => ({
   query: getSchema<IQueryProps>(yup.object().shape({
-    month: yup.number().integer().required().moreThan(0)
+    month: yup.number().integer().optional().moreThan(0)
   }))
 }));
 

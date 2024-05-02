@@ -2,6 +2,7 @@ import { create, createValidator } from './create';
 import { deleteById, deleteByIdValidator } from './deleteById';
 import { getAll, getAllValidator } from './getAll';
 import { getById, getByIdValidator } from './getById';
+import { getMonthlyHistory } from './getMonthlyHistory';
 import { update, updateValidator } from './update';
 
 
@@ -14,6 +15,7 @@ export const TransactionController = {
   getAllValidator,
   getById,
   getByIdValidator,
+  getMonthlyHistory,
   update,
   updateValidator,
 };

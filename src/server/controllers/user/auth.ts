@@ -29,7 +29,12 @@ export const auth: RequestHandler = async (req: Request<unknown, unknown, AuthBo
       throw new InternalServerError('Error while authentication user.');
     }
     return res.status(StatusCodes.OK).json({
-      accessToken: jwtService.generateToken({ uid: user!.id })
+      accessToken: jwtService.generateToken({ uid: user!.id }),
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
     });
 
   } catch (error) {

@@ -54,7 +54,7 @@ export const getHistoryByAllTransactions = (allTransactions: Transaction[]): His
       if (amount > 0) {
         incomes += amount;
       } else {
-        expenses += amount;
+        expenses += amount * -1;
       }
     });
 
@@ -66,5 +66,5 @@ export const getHistoryByAllTransactions = (allTransactions: Transaction[]): His
 
   });
 
-  return history;
+  return history.reverse();
 };

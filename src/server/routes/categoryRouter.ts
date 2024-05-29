@@ -7,6 +7,7 @@ const categoryRoutes = Router();
 export enum CategoryRoutesEnum {
   CATEGORY = '/category',
   CATEGORY_ID = '/category/:id',
+  CATEGORY_NUMBERS = '/category/numbers',
 }
 
 categoryRoutes.get(CategoryRoutesEnum.CATEGORY,
@@ -25,6 +26,12 @@ categoryRoutes.put(CategoryRoutesEnum.CATEGORY,
   ensureAuth,
   CategoryController.updateValidator,
   CategoryController.update
+);
+
+
+categoryRoutes.get(CategoryRoutesEnum.CATEGORY_NUMBERS,
+  ensureAuth,
+  CategoryController.getCategoryNumbers
 );
 
 categoryRoutes.get(CategoryRoutesEnum.CATEGORY_ID,
